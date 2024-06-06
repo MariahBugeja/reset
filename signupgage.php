@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once 'db_connection.php';
-include 'includes/header.php';
 
 $message = "";
 
