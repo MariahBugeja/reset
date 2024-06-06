@@ -14,7 +14,6 @@ $posts_result = $conn->query($posts_query);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
     <link rel="stylesheet" href="style.css">
-
 </head>
 <body class="home">
     <?php include 'includes/header.php'; ?>
@@ -28,10 +27,11 @@ $posts_result = $conn->query($posts_query);
     <div class="post-grid">
         <?php while($post = $posts_result->fetch_assoc()): ?>
             <div class="post">
-                <img src="<?php echo $post['image']; ?>" alt="Post Image"> 
+                <a href="viewpost.php?postid=<?php echo $post['postId']; ?>"> 
+                    <img src="<?php echo $post['image']; ?>" alt="Post Image"> 
+                </a>
             </div>
         <?php endwhile; ?>
     </div>
 </body>
 </html>
-
