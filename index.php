@@ -23,11 +23,7 @@ $recipes_result = $conn->query($recipes_query);
 <body class="home">
     <?php include 'includes/header.php'; ?>
 
-    <div class="categories">
-        <button class="category">Vegan</button>
-        <button class="category">Healthy</button>
-        <button class="category">Easy to Make</button>
-    </div>
+    
 
     <div class="post-grid">
         <?php while($post = $posts_result->fetch_assoc()): ?>

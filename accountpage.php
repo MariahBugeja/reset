@@ -119,10 +119,11 @@ if ($user_result->num_rows > 0) {
                                     <button type="submit" name="update_recipe">Save</button>
                                 </form>
                             </div>
-                            <form method="post" action="deleterecipe.php">
-                                <input type="hidden" name="recipe_id" value="<?php echo $recipe['recipeId']; ?>">
-                                <button type="submit" name="delete_recipe">Delete</button>
-                            </form>
+                            <<form method="post" action="deleterecipe.php">
+    <input type="hidden" name="recipe_id" value="<?php echo $recipe['recipeId']; ?>">
+    <button type="submit" name="delete_recipe">Delete</button>
+</form>
+
                         </div>
                     <?php endwhile; ?>
                 <?php else: ?>
@@ -134,7 +135,6 @@ if ($user_result->num_rows > 0) {
             <h2 class="account-posts-title">Saved Posts</h2>
             <div class="account-posts-grid">
                 <?php
-                // Fetch user's saved posts
                 $saved_posts_query = "SELECT DISTINCT post.*, user.username FROM save 
                                       INNER JOIN post ON save.postid = post.postId 
                                       INNER JOIN user ON post.Userid = user.userid 
@@ -144,7 +144,6 @@ if ($user_result->num_rows > 0) {
                 $saved_posts_stmt->execute();
                 $saved_posts_result = $saved_posts_stmt->get_result();
 
-                // Display user's saved posts
                 if ($saved_posts_result->num_rows > 0) {
                     while ($saved_post = $saved_posts_result->fetch_assoc()) {
                         ?>
@@ -152,7 +151,6 @@ if ($user_result->num_rows > 0) {
                             <img src="<?php echo $saved_post['image']; ?>" alt="Post Image">
                             <h3 class="account-post-title"><?php echo $saved_post['title']; ?></h3>
                             <p>Creator: <?php echo $saved_post['username']; ?></p>
-                            <!-- Add delete option -->
                             <form method="post" action="delete_saved_post.php">
                                 <input type="hidden" name="saved_post_id" value="<?php echo $saved_post['postId']; ?>">
                                 <button type="submit" name="delete_saved_post">Delete</button>
