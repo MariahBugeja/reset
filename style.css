@@ -1,0 +1,524 @@
+.login-body {
+    font-family: Arial, sans-serif;
+    background: url('assets/background.png') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+}
+
+.login-body .overlay {
+    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-body .login-container {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-body .login-form h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #e60023;
+}
+
+.login-body .login-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.login-body .login-form input {
+    width: 100%;
+    padding: 10px; 
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;  
+}
+
+.login-body .login-form button {
+    width: 100%;
+    padding: 10px;
+    background: #e60023;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+
+.login-body .login-form p {
+    text-align: center;
+    color: #666;
+}
+
+.login-body .login-form p a {
+    color: #e60023;
+    text-decoration: none;
+}
+
+.login-body .error {
+    color: red;
+    text-align: center;
+}
+
+
+.signup-body {
+    font-family: Arial, sans-serif;
+    background: url('assets/background.png') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+}
+
+.signup-body .overlay {
+    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signup-body .signup-container {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.signup-body .signup-form h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #e60023;
+}
+
+.signup-body .signup-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.signup-body .signup-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.signup-body .signup-form button {
+    width: 100%;
+    padding: 10px;
+    background: #e60023;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.signup-body .signup-form p {
+    text-align: center;
+    color: #666;
+}
+
+.signup-body .signup-form p a {
+    color: #e60023;
+    text-decoration: none;
+}
+
+.signup-body .error {
+    color: red;
+    text-align: center;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.overlay {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.create-pin-body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding-top: 70px; 
+}
+
+.create-pin-container {
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: 600px;
+    margin-top: 20px;
+}
+.create-pin-container h2 {
+    margin-top: 0;
+    text-align: center;
+}
+.create-pin-form-group {
+    margin-bottom: 15px;
+}
+.create-pin-container label {
+    display: block;
+    margin-bottom: 5px;
+}
+.create-pin-container input[type="text"],
+.create-pin-container textarea {
+    width: calc(100% - 22px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.create-pin-container input[type="file"] {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+    width: calc(100% - 12px);
+}
+.create-pin-container input[type="submit"] {
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+}
+.create-pin-container input[type="submit"]:hover {
+    background-color: #4cae4c;
+}
+.create-pin-container .message {
+    text-align: center;
+    margin-bottom: 15px;
+    color: green;
+}
+.create-pin-container .error {
+    text-align: center;
+    margin-bottom: 15px;
+    color: red;
+}
+.create-pin-upload-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed #ccc;
+    padding: 50px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+.create-pin-upload-container input {
+    display: none;
+}
+.create-pin-upload-container label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+}
+.create-pin-upload-container img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+.create-pin-details-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.pinfood-header .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;  
+    position: fixed;  
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.pinfood-header .header-left, .pinfood-header .header-right {
+    display: flex;
+    align-items: center;
+}
+
+.pinfood-header .logo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.pinfood-header .nav-item {
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.pinfood-header .header-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.pinfood-header .search-input {
+    width: 50%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 50px;
+}
+
+.pinfood-header .icon {
+    width: 24px;
+    height: 24px;
+    background-size: cover;
+    margin-left: 10px;  
+    position: relative;
+}
+
+.pinfood-header .notification-icon {
+    background-image: url('assets/notification.png'); }
+
+.pinfood-header .notification-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 5px;
+    font-size: 12px;
+}
+
+.pinfood-header .recipe-icon {
+    background-image: url('assets/recipe.png'); }
+
+.pinfood-header .profile-icon {
+    background-image: url('assets/profileicon.png'); 
+    border-radius: 50%;
+    margin-left: 15px; 
+}
+
+.pinfood-header .header-right {
+    display: flex;
+    align-items: center;
+    padding-right: 20px; 
+}
+
+
+.account-body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.account-container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 800px;
+    width: 100%;
+    margin: 20px;
+    text-align: center;
+}
+
+/* Profile section */
+.account-profile {
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+/* Profile picture */
+.profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+/* Headings */
+.account-username {
+    margin: 10px 0;
+    color: #333;
+}
+
+/* Email */
+.account-email {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+/* Tabs */
+.account-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.account-tab {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 0 5px;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.account-tab.active {
+    background-color: #e60023;
+    color: white;
+}
+
+/* Posts section */
+.account-posts {
+    text-align: left;
+}
+
+.account-posts-title {
+    text-align: center;
+}
+
+.account-posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+/* Individual post */
+.account-post {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.account-post img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.account-post-title {
+    margin: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+
+.profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid #ccc; /* Add border to create a circle */
+    background-color: #f9f9f9; /* Background color for empty circle */
+}
+
+
+.home .categories {
+    display: flex;
+    justify-content: center;
+    padding-top: 4%;
+}
+
+.home .category {
+    background-color: #e60023;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    margin: 0 10px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.home .category:hover {
+    background-color: #c4001d;
+}
+
+.home .post-grid {
+    column-count: 3;
+    column-gap: 20px;
+    padding: 4%;
+}
+
+.home .post {
+    background-color: white;
+    display: inline-block;
+    margin-bottom: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    display: flex;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    break-inside: avoid;
+}
+
+.home .post img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+
+
