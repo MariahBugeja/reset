@@ -164,7 +164,7 @@ if ($comment_result->num_rows > 0) {
             <img src="<?php echo $post['image']; ?>" alt="Post Image">
             <div class="post-content-view">
                 <h2 class="post-title-view"><?php echo isset($post['title']) ? $post['title'] : 'Untitled'; ?></h2>
-                <p class="creator-view">Created by: <a href="user_profile.php?userid=<?php echo $user['userid']; ?>"><?php echo $user['username']; ?></a></p>
+                <p class="creator-view">Created by: <a href="users.php?userid=<?php echo $user['userid']; ?>"><?php echo $user['username']; ?></a></p>
                 <p class="post-description-view"><?php echo $post['description']; ?></p>
             </div>
             <form id="loveForm" action="love_post.php" method="post">
@@ -175,6 +175,11 @@ if ($comment_result->num_rows > 0) {
             <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>            </svg>
         </button>
     </form>
+    <form action="save_post.php" method="post">
+    <input type="hidden" name="postid" value="<?php echo $post_id; ?>">
+    <button type="submit" name="save" value="1" style="border: 1px solid red; background-color: red; color: white;">Save</button>
+</form>
+
         </div>
 
         <div class="comment-section">
@@ -201,7 +206,6 @@ if ($comment_result->num_rows > 0) {
                 <input type="submit" value="Post Comment">
             </form>
         </div>
-<!-- Like Button Form -->
 
 
     <script>
@@ -214,7 +218,7 @@ if ($comment_result->num_rows > 0) {
             }
 
             loveButton.addEventListener("click", function(event) {
-                event.preventDefault(); // Prevent form submission
+                event.preventDefault(); 
 
                 if (loveButton.style.fill === "red") {
                     loveButton.style.fill = "#ccc";

@@ -3,19 +3,25 @@ session_start();
 require_once 'db_connection.php';
 include 'includes/header.php'; 
 
-// Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php"); 
+    header("Location: loginpage.php"); 
     exit; 
 }
 
-$user_id = $_SESSION['user_id'];
+if (isset($_GET['userid'])) {
+    $user_id = $_GET['userid'];
+} else {
+    echo "User ID not provided.";
+    exit;
+}
+
 $user_query = "SELECT * FROM user WHERE userid = ?";
 $user_stmt = $conn->prepare($user_query);
 $user_stmt->bind_param("i", $user_id);
 $user_stmt->execute();
 $user_result = $user_stmt->get_result();
 
+// Check if user exists
 if ($user_result->num_rows > 0) {
     $user = $user_result->fetch_assoc(); 
 
@@ -43,7 +49,7 @@ if ($user_result->num_rows > 0) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account Page</title>
+    <title>User Profile - <?php echo $username; ?></title>
     <link rel="stylesheet" href="style.css"> 
 </head>
 <body class="account-body">
@@ -52,15 +58,20 @@ if ($user_result->num_rows > 0) {
             <!-- Display user profile information -->
             <h2 class="account-username"><?php echo $username; ?></h2>
             <p class="account-email"><?php echo $email; ?></p>
+            <!-- Follow button -->
+            <form action="follow_user.php" method="post">
+                <input type="hidden" name="followed_user_id" value="<?php echo $user_id; ?>">
+                <button type="submit" name="follow">Follow</button>
+            </form>
         </div>
         <div class="account-tabs">
             <button class="account-tab active" onclick="showTab('account-created')">Created</button>
             <button class="account-tab" onclick="showTab('account-saved')">Saved</button>
         </div>
         <div id="account-created" class="account-posts">
-            <h2 class="account-posts-title">My Posts</h2>
+            <h2 class="account-posts-title">User's Posts</h2>
             <div class="account-posts-grid">
-                <!-- Display user posts -->
+                <!-- Display user's posts -->
                 <?php if ($posts_result->num_rows > 0): ?>
                     <?php while($post = $posts_result->fetch_assoc()): ?>
                         <div class="account-post">
@@ -72,9 +83,9 @@ if ($user_result->num_rows > 0) {
                     <p>No posts found.</p>
                 <?php endif; ?>
             </div>
-            <h2 class="account-posts-title">My Recipes</h2>
+            <h2 class="account-posts-title">User's Recipes</h2>
             <div class="account-posts-grid">
-                <!-- Display user recipes -->
+                <!-- Display user's recipes -->
                 <?php if ($recipes_result->num_rows > 0): ?>
                     <?php while($recipe = $recipes_result->fetch_assoc()): ?>
                         <div class="account-post">
@@ -88,37 +99,8 @@ if ($user_result->num_rows > 0) {
             </div>
         </div>
         <div id="account-saved" class="account-posts" style="display: none;">
-    <h2 class="account-posts-title">Saved Posts</h2>
-    <div class="account-posts-grid">
-        <?php
-        // Fetch user's saved posts
-        $saved_posts_query = "SELECT DISTINCT post.*, user.username FROM save 
-                              INNER JOIN post ON save.postid = post.postId 
-                              INNER JOIN user ON post.Userid = user.userid 
-                              WHERE save.userid = ?";
-        $saved_posts_stmt = $conn->prepare($saved_posts_query);
-        $saved_posts_stmt->bind_param("i", $user_id);
-        $saved_posts_stmt->execute();
-        $saved_posts_result = $saved_posts_stmt->get_result();
-
-        // Display user's saved posts
-        if ($saved_posts_result->num_rows > 0) {
-            while ($saved_post = $saved_posts_result->fetch_assoc()) {
-                ?>
-                <div class="account-post">
-                    <img src="<?php echo $saved_post['image']; ?>" alt="Post Image">
-                    <h3 class="account-post-title"><?php echo $saved_post['title']; ?></h3>
-                    <p>Creator: <?php echo $saved_post['username']; ?></p>
-                </div>
-                <?php
-            }
-        } else {
-            echo "<p>No saved posts found.</p>";
-        }
-        ?>
-    </div>
-</div>
-
+            <h2 class="account-posts-title">Saved Posts</h2>
+        </div>
     </div>
     <script>
         function showTab(tabName) {
