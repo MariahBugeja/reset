@@ -11,7 +11,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Get the current timestamp
         $timestamp = date("Y-m-d H:i:s");
 
-        // Fetch the username based on user ID
         $user_query = "SELECT username FROM user WHERE userid = '$user_id'";
         $user_result = $conn->query($user_query);
         if ($user_result->num_rows > 0) {
@@ -40,4 +39,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "Error: Invalid request method.";
     exit();
 }
+
+
 ?>

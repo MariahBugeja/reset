@@ -3,8 +3,13 @@ session_start();
 require_once 'db_connection.php';
 include 'includes/header.php';
 
+// Fetch posts
 $posts_query = "SELECT * FROM post";
 $posts_result = $conn->query($posts_query);
+
+// Fetch recipes
+$recipes_query = "SELECT * FROM postrecipe";
+$recipes_result = $conn->query($recipes_query);
 ?>
 
 <!DOCTYPE html>
@@ -32,6 +37,16 @@ $posts_result = $conn->query($posts_query);
                 </a>
             </div>
         <?php endwhile; ?>
-    </div>
+
+        <div class="post-grid">
+    <?php while($recipe = $recipes_result->fetch_assoc()): ?>
+        <div class="recipe">
+            <a href="viewrecipe.php?recipeid=<?php echo $recipe['recipeId']; ?>"> 
+                <img src="<?php echo $recipe['image']; ?>" alt="Recipe Image"> 
+            </a>
+        </div>
+    <?php endwhile; ?>
+</div>
+
 </body>
 </html>

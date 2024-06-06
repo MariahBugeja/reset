@@ -4,13 +4,21 @@ require_once 'db_connection.php';
 include 'includes/header.php';
 
 function generateCard($row) {
+    $link = '';
+    if ($row['source'] === 'post') {
+        $link = 'viewpost.php?postid=' . $row['id'];
+    } elseif ($row['source'] === 'postrecipe') {
+        $link = 'viewrecipe.php?recipeid=' . $row['id'];
+    }
     return '
-    <div class="search-card"> <!-- Added class "search-card" -->
-        <img src="' . htmlspecialchars($row["image"]) . '" alt="' . htmlspecialchars($row["title"]) . '" class="search-card-image"> <!-- Added class "search-card-image" -->
-        <div class="search-card-content"> <!-- Added class "search-card-content" -->
-            <h3 class="search-card-content-h3">' . htmlspecialchars($row["title"]) . '</h3> <!-- Added class "search-card-content-h3" -->
+    <a href="' . $link . '" class="search-card-link"> <!-- Added link to viewpost or viewrecipe -->
+        <div class="search-card"> <!-- Added class "search-card" -->
+            <img src="' . htmlspecialchars($row["image"]) . '" alt="' . htmlspecialchars($row["title"]) . '" class="search-card-image"> <!-- Added class "search-card-image" -->
+            <div class="search-card-content"> <!-- Added class "search-card-content" -->
+                <h3 class="search-card-content-h3">' . htmlspecialchars($row["title"]) . '</h3> <!-- Added class "search-card-content-h3" -->
+            </div>
         </div>
-    </div>';
+    </a>';
 }
 
 $resultsHtml = '';
@@ -98,6 +106,10 @@ body {
     margin: 0;
     font-size: 1.2em;
     color: #333;
+}
+
+.search-card-link {
+    text-decoration: none; 
 }
 
 </style>
