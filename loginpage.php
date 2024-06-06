@@ -16,20 +16,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($login_result->num_rows == 1) {
         $user = $login_result->fetch_assoc();
-        $_SESSION['user_id'] = $user['userid']; 
-        header("Location: index.php"); 
+        $_SESSION['userId'] = $user['userid']; 
+        // Debugging statement
+        echo "User ID from database: " . $user['userid'];
+        echo "User ID set in session: " . $_SESSION['userId'];
+        header("Location: accountpage.php"); 
         exit;
     } else {
         $message = "Invalid email or password";
     }
-
-    
 }
-
-var_dump($_SESSION);
 
 $conn->close();
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -55,7 +56,7 @@ $conn->close();
                 
                 <button type="submit">Login</button>
                 
-                <p>Don't have an account? <a href="signupgage.php">Sign up</a></p>
+                <p>Don't have an account? <a href="signuppage.php">Sign up</a></p> <!-- corrected typo -->
             </form>
         </div>
     </div>

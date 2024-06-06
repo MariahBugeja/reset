@@ -19,9 +19,9 @@
                 </form>
             </div>
             <div class="header-right">
-                <div class="icon notification-icon">
-                    <span class="notification-count">9</span>
-                </div>
+            <a href="notification.php"class="icon notification-icon">
+
+</a>
                 <a href="recipe.php" class="icon recipe-icon"></a>
                 <a href="accountpage.php" style="text-decoration: none; color: inherit;" class="icon profile-icon"></a>
             </div>

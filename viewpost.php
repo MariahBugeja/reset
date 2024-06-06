@@ -179,8 +179,8 @@ if ($comment_result->num_rows > 0) {
     <input type="hidden" name="postid" value="<?php echo $post_id; ?>">
     <button type="submit" name="save" value="1" style="border: 1px solid red; background-color: red; color: white;">Save</button>
 </form>
-
         </div>
+        <button id="copyLinkButton">Copy Post Link</button>
 
         <div class="comment-section">
             <h3>Comments</h3>
@@ -188,7 +188,7 @@ if ($comment_result->num_rows > 0) {
                 <?php foreach ($comments as $comment): ?>
                     <div class="comment">
                         <p><?php echo $comment['content']; ?></p>
-                        <p>By: <a href="user_profile.php?userid=<?php echo $comment['userid']; ?>"><?php echo $comment['username']; ?></a></p>
+                        <p>By: <a href="users.php?userid=<?php echo $comment['userid']; ?>"><?php echo $comment['username']; ?></a></p>
                         <p>Time: <?php echo $comment['timestamp']; ?></p>
                     </div>
                 <?php endforeach; ?>
@@ -227,6 +227,20 @@ if ($comment_result->num_rows > 0) {
                 }
             });
         });
+        document.addEventListener("DOMContentLoaded", function() {
+        var copyLinkButton = document.getElementById("copyLinkButton");
+
+        copyLinkButton.addEventListener("click", function() {
+            var postLink = window.location.href; 
+            var tempInput = document.createElement("input");
+            tempInput.value = postLink; 
+            document.body.appendChild(tempInput); 
+            tempInput.select(); 
+            document.execCommand("copy"); 
+            document.body.removeChild(tempInput); 
+            alert("Post link copied to clipboard!"); 
+        });
+    });
     </script>
 </body>
 </html>

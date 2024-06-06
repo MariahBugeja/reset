@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['comment']) && isset($_POST['postid'])) {
         $comment = $_POST['comment'];
         $post_id = $_POST['postid'];
-        $user_id = $_SESSION['user_id']; 
+        $user_id = $_SESSION['userId']; 
 
         // Get the current timestamp
         $timestamp = date("Y-m-d H:i:s");
@@ -21,8 +21,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $insert_result = $conn->query($insert_query);
 
             if ($insert_result === true) {
-                header("Location: viewpost.php?postid=$post_id");
-                exit();
+                // Insert notification
+                $notification_message = "New comment posted on your post.";
+                $notification_insert_query = "INSERT INTO notification (message, userId, createdAt) VALUES ('$notification_message', '$user_id', '$timestamp')";
+                $notification_insert_result = $conn->query($notification_insert_query);
+                
+                if ($notification_insert_result === true) {
+                    header("Location: viewpost.php?postid=$post_id");
+                    exit();
+                } else {
+                    echo "Error: Failed to insert notification. " . $conn->error;
+                    exit();
+                }
             } else {
                 echo "Error: Failed to insert comment. " . $conn->error;
                 exit();
@@ -39,6 +49,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "Error: Invalid request method.";
     exit();
 }
-
-
 ?>

@@ -5,16 +5,20 @@ include 'includes/header.php';
 
 // Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php"); 
+    header("Location: loginpage.php"); 
     exit; 
 }
 
-$user_id = $_SESSION['user_id'];
+$user_id = $_SESSION['userId']; 
+
+// Fetch user information
 $user_query = "SELECT * FROM user WHERE userid = ?";
 $user_stmt = $conn->prepare($user_query);
 $user_stmt->bind_param("i", $user_id);
 $user_stmt->execute();
 $user_result = $user_stmt->get_result();
+
+
 
 if ($user_result->num_rows > 0) {
     $user = $user_result->fetch_assoc(); 
@@ -36,6 +40,7 @@ if ($user_result->num_rows > 0) {
     $recipes_stmt->bind_param("i", $user_id);
     $recipes_stmt->execute();
     $recipes_result = $recipes_stmt->get_result();
+
 ?>
 
 <!DOCTYPE html>
@@ -45,6 +50,16 @@ if ($user_result->num_rows > 0) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account Page</title>
     <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .edit-icon {
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body class="account-body">
     <div class="account-container">
@@ -65,7 +80,21 @@ if ($user_result->num_rows > 0) {
                     <?php while($post = $posts_result->fetch_assoc()): ?>
                         <div class="account-post">
                             <img src="<?php echo $post['image']; ?>" alt="Post Image">
-                            <h3 class="account-post-title"><?php echo $post['title']; ?></h3>
+                            <div>
+                                <h3 class="account-post-title">
+                                    <span class="title-text"><?php echo $post['title']; ?></span>
+                                    <i class="fas fa-edit edit-icon" onclick="editTitle(<?php echo $post['postId']; ?>)"></i>
+                                </h3>
+                                <form method="post" action="updatepost.php" class="hidden" id="form-<?php echo $post['postId']; ?>">
+                                    <input type="hidden" name="post_id" value="<?php echo $post['postId']; ?>">
+                                    <input type="text" name="new_title" value="<?php echo $post['title']; ?>">
+                                    <button type="submit" name="update_post">Save</button>
+                                </form>
+                            </div>
+                            <form method="post" action="deletepost.php">
+                                <input type="hidden" name="post_id" value="<?php echo $post['postId']; ?>">
+                                <button type="submit" name="delete_post">Delete</button>
+                            </form>
                         </div>
                     <?php endwhile; ?>
                 <?php else: ?>
@@ -79,7 +108,21 @@ if ($user_result->num_rows > 0) {
                     <?php while($recipe = $recipes_result->fetch_assoc()): ?>
                         <div class="account-post">
                             <img src="<?php echo $recipe['image']; ?>" alt="Recipe Image">
-                            <h3 class="account-post-title"><?php echo $recipe['title']; ?></h3>
+                            <div>
+                                <h3 class="account-post-title">
+                                    <span class="title-text"><?php echo $recipe['title']; ?></span>
+                                    <i class="fas fa-edit edit-icon" onclick="editRecipeTitle(<?php echo $recipe['recipeId']; ?>)"></i>
+                                </h3>
+                                <form method="post" action="updaterecipe.php" class="hidden" id="recipe-form-<?php echo $recipe['recipeId']; ?>">
+                                    <input type="hidden" name="recipe_id" value="<?php echo $recipe['recipeId']; ?>">
+                                    <input type="text" name="new_title" value="<?php echo $recipe['title']; ?>">
+                                    <button type="submit" name="update_recipe">Save</button>
+                                </form>
+                            </div>
+                            <form method="post" action="deleterecipe.php">
+                                <input type="hidden" name="recipe_id" value="<?php echo $recipe['recipeId']; ?>">
+                                <button type="submit" name="delete_recipe">Delete</button>
+                            </form>
                         </div>
                     <?php endwhile; ?>
                 <?php else: ?>
@@ -88,37 +131,41 @@ if ($user_result->num_rows > 0) {
             </div>
         </div>
         <div id="account-saved" class="account-posts" style="display: none;">
-    <h2 class="account-posts-title">Saved Posts</h2>
-    <div class="account-posts-grid">
-        <?php
-        // Fetch user's saved posts
-        $saved_posts_query = "SELECT DISTINCT post.*, user.username FROM save 
-                              INNER JOIN post ON save.postid = post.postId 
-                              INNER JOIN user ON post.Userid = user.userid 
-                              WHERE save.userid = ?";
-        $saved_posts_stmt = $conn->prepare($saved_posts_query);
-        $saved_posts_stmt->bind_param("i", $user_id);
-        $saved_posts_stmt->execute();
-        $saved_posts_result = $saved_posts_stmt->get_result();
-
-        // Display user's saved posts
-        if ($saved_posts_result->num_rows > 0) {
-            while ($saved_post = $saved_posts_result->fetch_assoc()) {
-                ?>
-                <div class="account-post">
-                    <img src="<?php echo $saved_post['image']; ?>" alt="Post Image">
-                    <h3 class="account-post-title"><?php echo $saved_post['title']; ?></h3>
-                    <p>Creator: <?php echo $saved_post['username']; ?></p>
-                </div>
+            <h2 class="account-posts-title">Saved Posts</h2>
+            <div class="account-posts-grid">
                 <?php
-            }
-        } else {
-            echo "<p>No saved posts found.</p>";
-        }
-        ?>
-    </div>
-</div>
+                // Fetch user's saved posts
+                $saved_posts_query = "SELECT DISTINCT post.*, user.username FROM save 
+                                      INNER JOIN post ON save.postid = post.postId 
+                                      INNER JOIN user ON post.Userid = user.userid 
+                                      WHERE save.userid = ?";
+                $saved_posts_stmt = $conn->prepare($saved_posts_query);
+                $saved_posts_stmt->bind_param("i", $user_id);
+                $saved_posts_stmt->execute();
+                $saved_posts_result = $saved_posts_stmt->get_result();
 
+                // Display user's saved posts
+                if ($saved_posts_result->num_rows > 0) {
+                    while ($saved_post = $saved_posts_result->fetch_assoc()) {
+                        ?>
+                        <div class="account-post">
+                            <img src="<?php echo $saved_post['image']; ?>" alt="Post Image">
+                            <h3 class="account-post-title"><?php echo $saved_post['title']; ?></h3>
+                            <p>Creator: <?php echo $saved_post['username']; ?></p>
+                            <!-- Add delete option -->
+                            <form method="post" action="delete_saved_post.php">
+                                <input type="hidden" name="saved_post_id" value="<?php echo $saved_post['postId']; ?>">
+                                <button type="submit" name="delete_saved_post">Delete</button>
+                            </form>
+                        </div>
+                        <?php
+                    }
+                } else {
+                    echo "<p>No saved posts found.</p>";
+                }
+                ?>
+            </div>
+        </div>
     </div>
     <script>
         function showTab(tabName) {
@@ -129,6 +176,14 @@ if ($user_result->num_rows > 0) {
                 button.classList.remove('active');
             });
             document.querySelector(`.account-tab[onclick="showTab('${tabName}')"]`).classList.add('active');
+        }
+
+        function editTitle(postId) {
+            document.getElementById('form-' + postId).classList.toggle('hidden');
+        }
+
+        function editRecipeTitle(recipeId) {
+            document.getElementById('recipe-form-' + recipeId).classList.toggle('hidden');
         }
     </script>
 </body>

@@ -3,14 +3,14 @@ session_start();
 require_once 'db_connection.php';
 
 // Check if user is logged in
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['userId'])) { // Update session variable name here
     header("Location: loginpage.php");
     exit;
 }
 
 if (isset($_POST['save'])) {
     $post_id = $_POST['postid'];
-    $user_id = $_SESSION['user_id'];
+    $user_id = $_SESSION['userId']; // Update session variable name here
 
     // Insert into the save table
     $save_query = "INSERT INTO save (userid, postid) VALUES (?, ?)";

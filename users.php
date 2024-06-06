@@ -66,7 +66,6 @@ if ($user_result->num_rows > 0) {
         </div>
         <div class="account-tabs">
             <button class="account-tab active" onclick="showTab('account-created')">Created</button>
-            <button class="account-tab" onclick="showTab('account-saved')">Saved</button>
         </div>
         <div id="account-created" class="account-posts">
             <h2 class="account-posts-title">User's Posts</h2>
@@ -98,14 +97,10 @@ if ($user_result->num_rows > 0) {
                 <?php endif; ?>
             </div>
         </div>
-        <div id="account-saved" class="account-posts" style="display: none;">
-            <h2 class="account-posts-title">Saved Posts</h2>
-        </div>
     </div>
     <script>
         function showTab(tabName) {
             document.getElementById('account-created').style.display = 'none';
-            document.getElementById('account-saved').style.display = 'none';
             document.getElementById(tabName).style.display = 'block';
             document.querySelectorAll('.account-tab').forEach(button => {
                 button.classList.remove('active');
